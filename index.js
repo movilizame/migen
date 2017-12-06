@@ -4,10 +4,23 @@ var lwip = require('lwip');
 var chalk = require('chalk');
 var path = require('path');
 var sync = require('sync');
+var sizeOf = require('image-size');
 
 var schemas = {
-    ios: [20,29,40,50,57,58,60,72,76,80,87,100,114,120,144,152,180,1024],
-    android: [36,48,72,96,144,192]
+    'ios': [20,29,40,50,57,58,60,72,76,80,87,100,114,120,144,152,180,1024],
+    'android': [36,48,72,96,144,192],
+    'ios-screen': [
+        { w: 320, h: 480 },
+        { w: 640, h: 960 },
+        { w: 640, h: 1136 },
+        { w: 750, h: 1334 },
+        { w: 768, h: 1024 },
+        { w: 1024, h: 768 },
+        { w: 1242, h: 2208 },
+        { w: 1536, h: 2048 },
+        { w: 2208, h: 1242 },
+        { w: 2048, h: 1536 },
+    ]
 };
 
 var fnChangeImageSize = function (file, size) {
@@ -18,15 +31,39 @@ var fnChangeImageSize = function (file, size) {
             return;
         }
 
-        var newImageName = filename.replace('.png', '-' + size + '.png');
 
-        image.batch().resize(size).writeFile(newImageName, function (err) {
-            if (err) {
-                console.error(chalk.red('Error writing file: %s', err));    
-            } else {
-                console.log('Created: %s', newImageName);
+        if (typeof size === 'object') {
+            var dimensions = sizeOf(file);
+            var newImageName = filename.replace('.png', '-' + size.w + 'x' + size.h + '.png');
+            var cos = Math.floor(dimensions.width / (size.w > size.h ? size.w : size.h));
+            var width = size.w * cos;
+            var height = size.h * cos;
+            image.batch()
+                 .crop(width, height)
+                 .resize(size.w, size.h)
+                 .writeFile(newImageName, function (err) {
+                    if (err) {
+                        console.error(chalk.red('Error writing file: %s', err));    
+                    } else {
+                        console.log('Created: %s', newImageName);
+                    }
+                });
+
+        } else {
+            var newImageName = filename.replace('.png', '-' + size + '.png');
+            var intSize = parseInt(size, 10);
+            if (!isNaN(intSize)) {
+                image.batch().resize(size).writeFile(newImageName, function (err) {
+                    if (err) {
+                        console.error(chalk.red('Error writing file: %s', err));    
+                    } else {
+                        console.log('Created: %s', newImageName);
+                    }
+                });
             }
-        });
+        }
+
+
 
     });
     
