@@ -1,6 +1,12 @@
 # migen
 A node.js command line to generate icon files for a mobile app 
 
+# Install
+
+````
+npm install -g @movilizame/mobile-icon-generator
+````
+
 # Usage
 
 ````
