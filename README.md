@@ -1,2 +1,10 @@
-# mig
-A node command line to generate icon files for a mobile app
+# migen
+A node.js command line to generate icon files for a mobile app 
+
+# Usage
+
+````
+migen -s ios ../mobile-icon-generator/icon.png
+````
+
+Will generate for an the icon in 1024x1024px image all the necesary images for an mobile app upload.
