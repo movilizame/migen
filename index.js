@@ -7,7 +7,7 @@ var sync = require('sync');
 
 var schemas = {
     ios: [20,29,40,50,57,58,60,72,76,80,87,100,114,120,144,152,180,1024],
-    android: []
+    android: [36,48,72,96,144,192]
 };
 
 var fnChangeImageSize = function (file, size) {
