@@ -1,8 +1,10 @@
 {
-  "name": "mobile-icon-generator",
+  "name": "@movilizame/mobile-icon-generator",
   "version": "0.0.1",
   "description": "Generate icon files for a mobile app",
   "main": "index.js",
+  "repository": "https://github.com/movilizame/migen",
+  "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
