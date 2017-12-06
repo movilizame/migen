@@ -1,0 +1,27 @@
+{
+  "name": "mobile-icon-generator",
+  "version": "0.0.1",
+  "description": "Generate icon files for a mobile app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mobile",
+    "app",
+    "icon",
+    "generator",
+    "resize"
+  ],
+  "bin": {
+    "migen": "./index.js"
+  },
+  "author": "Movilizame",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "commander": "^2.12.2",
+    "lwip": "0.0.9",
+    "sync": "^0.2.5"
+  }
+}
