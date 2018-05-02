@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var program = require('commander');
-var lwip = require('lwip');
+var lwip = require('pajk-lwip');
 var chalk = require('chalk');
 var path = require('path');
 var sync = require('sync');
@@ -24,6 +24,8 @@ var schemas = {
         { w: 1536, h: 2048 },
         { w: 2208, h: 1242 },
         { w: 2048, h: 1536 },
+        { w: 1125, h: 2436 },
+        { w: 2436, h: 1125 },
     ],
     'android-screen': [
         { w: 200,  h: 320  }, // ldpi
