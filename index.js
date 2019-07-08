@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+var jimp = require('jimp');
 var program = require('commander');
-var lwip = require('pajk-lwip');
+// var lwip = require('pajk-lwip');
 var chalk = require('chalk');
 var path = require('path');
 var sync = require('sync');
@@ -45,7 +46,32 @@ var schemas = {
 
 var fnChangeImageSize = function (file, size) {
     var filename = path.basename(file);
-    lwip.open(file, function(err, image) {
+    jimp.read(filename).then(function (image) {
+        var newImageName = '';
+        if (typeof size === 'object') {
+            var dimensions = sizeOf(file);
+            newImageName = filename.replace('.png', '-' + size.w + 'x' + size.h + '.png');
+            var cos = Math.floor(dimensions.width / (size.w > size.h ? size.w : size.h));
+            var width = size.w * cos;
+            var height = size.h * cos;
+            image
+                .crop(width, height)
+                .resize(size.w, size.h)
+                .write(newImageName);
+
+        } else {
+            newImageName = filename.replace('.png', '-' + size + '.png');
+            var intSize = parseInt(size, 10);
+            if (!isNaN(intSize)) {
+                image
+                    .resize(intSize, intSize, jimp.RESIZE_BEZIER)
+                    .write(newImageName);
+            }
+        }
+    }).catch(function (err) {
+        console.error(err);
+    });
+    /* lwip.open(file, function(err, image) {
         if (err) {
             console.error(chalk.red('Error reading file: %s', err));
             return;
@@ -81,7 +107,7 @@ var fnChangeImageSize = function (file, size) {
                 });
             }
         }
-    });
+    }); */
     
 };
 

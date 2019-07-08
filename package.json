@@ -1,6 +1,6 @@
 {
   "name": "@movilizame/mobile-icon-generator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Generate icon / screen files for a mobile app",
   "main": "index.js",
   "repository": "https://github.com/movilizame/migen",
@@ -23,8 +23,9 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "commander": "^2.12.2",
+    "fibers": "^4.0.1",
     "image-size": "^0.6.1",
-    "lwip": "0.0.9",
+    "jimp": "^0.6.4",
     "sync": "^0.2.5"
   }
 }
