@@ -52,11 +52,13 @@ var fnChangeImageSize = function (file, size) {
             var dimensions = sizeOf(file);
             newImageName = filename.replace('.png', '-' + size.w + 'x' + size.h + '.png');
             var cos = Math.floor(dimensions.width / (size.w > size.h ? size.w : size.h));
-            var width = size.w * cos;
-            var height = size.h * cos;
+            var width = parseInt(size.w * cos, 10);
+            var height = parseInt(size.h * cos, 10);
+            var startCropX = dimensions.width / 2 - width / 2;
+            var startCropY = dimensions.height / 2 - height / 2;
             image
-                .crop(width, height)
-                .resize(size.w, size.h)
+                .crop(startCropX, startCropY, width, height)
+                .resize(size.w, size.h, jimp.RESIZE_BEZIER)
                 .write(newImageName);
 
         } else {
