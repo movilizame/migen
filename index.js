@@ -15,7 +15,25 @@ var schemas = {
         36, 48, 72, 96, 144, 192 
     ],
     'ios-screen': [
-        { w: 320,  h: 480  },
+        /* 
+        1334x1334 	Default@2x~iphone~anyany.png
+        750x1334 	Default@2x~iphone~comany.png
+        1334x750 	Default@2x~iphone~comcom.png
+        2208x2208 	Default@3x~iphone~anyany.png
+        2208x1242 	Default@3x~iphone~anycom.png
+        1242x2208 	Default@3x~iphone~comany.png
+        2732x2732 	Default@2x~ipad~anyany.png
+        1278x2732 	Default@2x~ipad~comany.png
+        */
+       { w: 1334,  h: 1334, name: 'Default@2x~iphone~anyany.png'  },
+       { w: 750,   h: 1334, name: 'Default@2x~iphone~comany.png'  },
+       { w: 1334,  h: 750,  name: 'Default@2x~iphone~comcom.png'  },
+       { w: 2208,  h: 2208, name: 'Default@3x~iphone~anyany.png'  },
+       { w: 2208,  h: 1242, name: 'Default@3x~iphone~anycom.png'  },
+       { w: 1242,  h: 2208, name: 'Default@3x~iphone~comany.png'  },
+       { w: 2732,  h: 2732, name: 'Default@2x~ipad~anyany.png'  },
+       { w: 1278,  h: 2732, name: 'Default@2x~ipad~comany.png'  },
+        /* { w: 320,  h: 480  },
         { w: 640,  h: 960  },
         { w: 640,  h: 1136 },
         { w: 750,  h: 1334 },
@@ -26,7 +44,7 @@ var schemas = {
         { w: 2208, h: 1242 },
         { w: 2048, h: 1536 },
         { w: 1125, h: 2436 },
-        { w: 2436, h: 1125 },
+        { w: 2436, h: 1125 }, */
     ],
     'android-screen': [
         { w: 200,  h: 320  }, // ldpi
@@ -50,7 +68,11 @@ var fnChangeImageSize = function (file, size) {
         var newImageName = '';
         if (typeof size === 'object') {
             var dimensions = sizeOf(file);
-            newImageName = filename.replace('.png', '-' + size.w + 'x' + size.h + '.png');
+            if (size.name) {
+                newImageName = size.name;
+            } else {
+                newImageName = filename.replace('.png', '-' + size.w + 'x' + size.h + '.png');
+            }
             var cos = Math.floor(dimensions.width / (size.w > size.h ? size.w : size.h));
             var width = parseInt(size.w * cos, 10);
             var height = parseInt(size.h * cos, 10);

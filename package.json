@@ -23,7 +23,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "commander": "^2.12.2",
-    "fibers": "^4.0.1",
+    "fibers": "^4.0.3",
     "image-size": "^0.6.1",
     "jimp": "^0.6.4",
     "sync": "^0.2.5"
